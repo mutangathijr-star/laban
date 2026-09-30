@@ -1,0 +1,574 @@
+/* Synthwave / Blinding Lights Aesthetic - Mobile, Tablet & Laptop Responsive */
+:root {
+    --bg-dark: #070312;
+    --neon-pink: #ff2a6d;
+    --neon-purple: #9d4edd;
+    --neon-cyan: #05d9e8;
+    --neon-red: #d1004b;
+    --glass-bg: rgba(20, 10, 35, 0.72);
+    --glass-border: rgba(255, 42, 109, 0.3);
+    --text-bright: #ffffff;
+    --text-muted: #d0c4e8;
+    --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-serif: 'Playfair Display', Georgia, serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+    width: 100%;
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-bright);
+    font-family: var(--font-heading);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    position: relative;
+    padding: 60px 16px 24px;
+}
+
+/* Background Animations & Grid */
+.bg-grid {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: 
+        linear-gradient(rgba(255, 42, 109, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(5, 217, 232, 0.06) 1px, transparent 1px);
+    background-size: 36px 36px;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.bg-glow {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.45;
+    z-index: 0;
+    pointer-events: none;
+    animation: floatGlow 12s infinite alternate ease-in-out;
+}
+
+.bg-glow-neon-red {
+    top: -10%;
+    left: -10%;
+    width: clamp(300px, 45vw, 600px);
+    height: clamp(300px, 45vw, 600px);
+    background: var(--neon-pink);
+}
+
+.bg-glow-neon-cyan {
+    bottom: -10%;
+    right: -10%;
+    width: clamp(320px, 50vw, 650px);
+    height: clamp(320px, 50vw, 650px);
+    background: var(--neon-purple);
+}
+
+@keyframes floatGlow {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(30px, -30px) scale(1.12); }
+}
+
+.bg-particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.particle {
+    position: absolute;
+    border-radius: 50%;
+    animation: floatParticle 10s infinite linear;
+}
+
+@keyframes floatParticle {
+    0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+    20% { opacity: 0.8; }
+    80% { opacity: 0.8; }
+    100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+}
+
+/* Floating Music Player Widget - Fully Responsive */
+.music-player-widget {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 14px;
+    border-radius: 40px;
+    background: rgba(20, 10, 35, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 42, 109, 0.25);
+    max-width: calc(100vw - 32px);
+}
+
+.cassette-disc {
+    font-size: 1.1rem;
+    display: inline-block;
+    transition: transform 0.3s;
+}
+
+.cassette-disc.playing {
+    animation: spin 3s linear infinite;
+}
+
+@keyframes spin {
+    100% { transform: rotate(360deg); }
+}
+
+.song-info {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.song-title {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #fff;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.song-artist {
+    font-size: 0.65rem;
+    color: var(--neon-cyan);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.music-btn {
+    background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple));
+    border: none;
+    color: white;
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 0.75rem;
+    box-shadow: 0 0 10px rgba(255, 42, 109, 0.5);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.music-btn:hover, .music-btn:active {
+    transform: scale(1.08);
+    box-shadow: 0 0 15px rgba(255, 42, 109, 0.8);
+}
+
+/* App Container & Screen Card Responsive Sizing */
+.app-container {
+    width: 100%;
+    max-width: 460px;
+    margin: 0 auto;
+    z-index: 10;
+    position: relative;
+}
+
+.screen {
+    display: none;
+    opacity: 0;
+    transform: translateY(16px) scale(0.97);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    width: 100%;
+}
+
+.screen.active {
+    display: block;
+}
+
+.screen.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid var(--glass-border);
+    border-radius: 28px;
+    padding: clamp(24px, 5vw, 36px) clamp(16px, 4vw, 28px);
+    text-align: center;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55), inset 0 1px 1px rgba(255, 255, 255, 0.12);
+}
+
+.shadow-neon {
+    box-shadow: 0 0 30px rgba(255, 42, 109, 0.25), 0 16px 40px rgba(0, 0, 0, 0.6);
+}
+
+/* Responsive Photo Container */
+.photo-container {
+    width: clamp(110px, 30vw, 140px);
+    height: clamp(110px, 30vw, 140px);
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    padding: 4px;
+    background: linear-gradient(135deg, var(--neon-pink), var(--neon-cyan));
+    box-shadow: 0 0 22px rgba(255, 42, 109, 0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+.photo-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+}
+
+.photo-fallback {
+    width: 100%;
+    height: 100%;
+    background: rgba(30, 15, 50, 0.9);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.photo-icon {
+    font-size: 2.2rem;
+    margin-bottom: 4px;
+}
+
+.upload-hint {
+    font-size: 0.65rem;
+    color: var(--neon-cyan);
+    text-align: center;
+}
+
+#photo-upload {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Typography & Responsive Text */
+.title {
+    font-size: clamp(1.5rem, 5vw, 2rem);
+    font-weight: 800;
+    margin-bottom: 8px;
+    background: linear-gradient(90deg, #fff, #ff758f);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+    color: var(--text-muted);
+    font-size: clamp(0.85rem, 2.5vw, 1rem);
+    margin-bottom: 18px;
+}
+
+.disclaimer-badge {
+    display: inline-block;
+    background: rgba(255, 42, 109, 0.15);
+    border: 1px solid rgba(255, 42, 109, 0.4);
+    color: var(--neon-pink);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: clamp(0.7rem, 2vw, 0.8rem);
+    font-weight: 600;
+    margin-bottom: 24px;
+    letter-spacing: 0.5px;
+}
+
+.emoji-header {
+    font-size: clamp(2.2rem, 6vw, 3rem);
+    margin-bottom: 12px;
+}
+
+.section-heading {
+    font-size: clamp(1.2rem, 3.5vw, 1.5rem);
+    color: #fff;
+    margin-bottom: 16px;
+}
+
+.message-text {
+    font-size: clamp(0.95rem, 2.8vw, 1.1rem);
+    line-height: 1.6;
+    color: var(--text-bright);
+    margin-bottom: 18px;
+    transition: opacity 0.3s ease;
+}
+
+.message-text.highlighted {
+    color: var(--text-bright);
+    background: rgba(255, 42, 109, 0.12);
+    padding: clamp(12px, 3.5vw, 16px);
+    border-radius: 14px;
+    border-left: 4px solid var(--neon-pink);
+    text-align: left;
+}
+
+/* Touch-Friendly Responsive Buttons */
+.btn {
+    width: 100%;
+    min-height: 48px;
+    padding: 12px 20px;
+    border-radius: 30px;
+    border: none;
+    font-family: var(--font-heading);
+    font-size: clamp(0.95rem, 2.5vw, 1.05rem);
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.primary-btn {
+    background: linear-gradient(135deg, var(--neon-pink), var(--neon-red));
+    color: white;
+    box-shadow: 0 4px 20px rgba(255, 42, 109, 0.4);
+}
+
+.primary-btn:hover, .primary-btn:active {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(255, 42, 109, 0.7);
+}
+
+.pulse-glow {
+    animation: buttonPulse 2s infinite;
+}
+
+@keyframes buttonPulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 42, 109, 0.7); }
+    70% { box-shadow: 0 0 0 15px rgba(255, 42, 109, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 42, 109, 0); }
+}
+
+.secondary-btn {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.secondary-btn:hover, .secondary-btn:active {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Card Header */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    font-size: 0.8rem;
+    color: var(--neon-cyan);
+}
+
+.counter {
+    font-weight: 700;
+}
+
+.message-content-wrapper {
+    min-height: clamp(100px, 20vh, 140px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+
+/* Quiz Responsive Styling */
+.quiz-icon {
+    font-size: clamp(2.5rem, 7vw, 3.2rem);
+    margin-bottom: 10px;
+}
+
+.quiz-title {
+    font-size: clamp(1.25rem, 4vw, 1.5rem);
+    margin-bottom: 6px;
+}
+
+.subtitle-quiz {
+    color: var(--text-muted);
+    font-size: clamp(0.85rem, 2.5vw, 0.95rem);
+    margin-bottom: 20px;
+}
+
+.quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.option-btn {
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: white;
+    text-align: left;
+    padding: 14px 18px;
+    font-weight: 500;
+    justify-content: flex-start;
+}
+
+.option-btn:hover, .option-btn:active {
+    background: rgba(255, 42, 109, 0.2);
+    border-color: var(--neon-pink);
+    transform: translateX(4px);
+}
+
+.reaction-icon {
+    font-size: clamp(2.8rem, 8vw, 3.8rem);
+    margin-bottom: 14px;
+}
+
+/* Final Screen */
+.final-card {
+    border-color: var(--neon-pink);
+    box-shadow: 0 0 35px rgba(255, 42, 109, 0.35);
+}
+
+.final-heart-glow {
+    font-size: clamp(3.2rem, 9vw, 4.5rem);
+    margin-bottom: 10px;
+    animation: heartPulse 1.5s infinite alternate ease-in-out;
+}
+
+@keyframes heartPulse {
+    0% { transform: scale(1); filter: drop-shadow(0 0 5px var(--neon-pink)); }
+    100% { transform: scale(1.22); filter: drop-shadow(0 0 25px var(--neon-pink)); }
+}
+
+.final-title {
+    font-family: var(--font-serif);
+    font-size: clamp(1.4rem, 4vw, 1.8rem);
+    color: #fff;
+    margin-bottom: 18px;
+}
+
+.final-text {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.6s ease;
+}
+
+.final-text.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.delay-1 { transition-delay: 0.3s; }
+.delay-2 { transition-delay: 0.6s; }
+
+.text-soft {
+    font-size: 0.9rem;
+    color: var(--neon-cyan);
+    font-style: italic;
+}
+
+.final-actions {
+    margin-top: 24px;
+}
+
+.restart-btn {
+    opacity: 0;
+    transition: opacity 0.5s ease 0.9s;
+}
+
+.restart-btn.show {
+    opacity: 1;
+}
+
+/* ==========================================
+   BREAKPOINTS & RESPONSIVE DESIGN MEDIA QUERIES
+   ========================================== */
+
+/* 1. Mobile Phones (narrow viewports <= 400px) */
+@media screen and (max-width: 400px) {
+    body {
+        padding: 55px 10px 16px;
+    }
+    .music-player-widget {
+        top: 10px;
+        right: 10px;
+        padding: 6px 10px;
+    }
+    .song-artist {
+        display: none; /* Keep widget compact on tiny screens */
+    }
+    .glass {
+        padding: 20px 14px;
+        border-radius: 20px;
+    }
+}
+
+/* 2. Tablets & Small Laptops (481px to 1024px) */
+@media screen and (min-width: 481px) and (max-width: 1024px) {
+    .app-container {
+        max-width: 500px;
+    }
+    .glass {
+        padding: 36px 30px;
+    }
+}
+
+/* 3. Laptops & Large Monitors (1025px and up) */
+@media screen and (min-width: 1025px) {
+    .app-container {
+        max-width: 520px;
+    }
+    .glass {
+        padding: 40px 36px;
+    }
+}
+
+/* 4. Mobile Landscape & Short Viewports (height <= 640px) */
+@media screen and (max-height: 640px) {
+    body {
+        padding-top: 50px;
+        padding-bottom: 12px;
+    }
+    .photo-container {
+        width: 90px;
+        height: 90px;
+        margin-bottom: 12px;
+    }
+    .glass {
+        padding: 18px 16px;
+    }
+    .message-content-wrapper {
+        min-height: 80px;
+        margin-bottom: 14px;
+    }
+    .disclaimer-badge {
+        margin-bottom: 14px;
+    }
+}
