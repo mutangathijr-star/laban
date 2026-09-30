@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Me 👀 | Laban's Secret</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Background glowing synthwave elements -->
+    <div class="bg-grid"></div>
+    <div class="bg-glow bg-glow-neon-red"></div>
+    <div class="bg-glow bg-glow-neon-cyan"></div>
+    <div class="bg-particles" id="bg-particles"></div>
+
+    <!-- Music Player Floating Widget -->
+    <div class="music-player-widget glass" id="music-widget">
+        <div class="cassette-disc" id="cassette-disc">✨</div>
+        <div class="song-info">
+            <span class="song-title">Blinding Lights</span>
+            <span class="song-artist">The Weeknd (Laban's Vibe)</span>
+        </div>
+        <button class="music-btn" id="play-pause-btn" title="Toggle Music">
+            <span id="play-icon">▶</span>
+        </button>
+        <audio id="bg-audio" loop preload="auto">
+            <!-- Fallback audio stream or user uploaded track -->
+            <source src="https://ia801503.us.archive.org/15/items/the-weeknd-blinding-lights/The%20Weeknd%20-%20Blinding%20Lights.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <div class="app-container">
+        <!-- Screen 1: Landing -->
+        <section id="screen-landing" class="screen active">
+            <div class="card glass shadow-neon">
+                <div class="photo-container">
+                    <img id="girl-photo" src="photo.jpg" alt="Secret Photo" onerror="handlePhotoError()">
+                    <div id="photo-fallback" class="photo-fallback" style="display: none;">
+                        <span class="photo-icon">✨</span>
+                        <span class="upload-hint">Drop or select photo.jpg</span>
+                        <input type="file" id="photo-upload" accept="image/*" onchange="loadUploadedPhoto(event)">
+                    </div>
+                </div>
+                <h1 class="title">Hey You 👀</h1>
+                <p class="subtitle">Laban made something hidden for you...</p>
+                <div class="disclaimer-badge">🔒 Strictly For Your Eyes Only</div>
+                <button class="btn primary-btn pulse-glow" onclick="startAppWithAudio()">Open Secret 🔓</button>
+            </div>
+        </section>
+
+        <!-- Screen 2: Honesty & Setup -->
+        <section id="screen-setup" class="screen">
+            <div class="card glass">
+                <div class="emoji-header">🥀 ➡️ ✨</div>
+                <h2 class="section-heading">Before you read this...</h2>
+                <p class="message-text highlighted">
+                    Look... I'm not going to pretend I've been perfect. I know I've fucked up a bit, made mistakes, and messed things up along the way...
+                </p>
+                <p class="message-text">
+                    But if there's one thing I am 100% sure about in this chaos, it's how much you mean to me.
+                </p>
+                <button class="btn primary-btn" onclick="startMessageLoop()">Keep Tapping 👀</button>
+            </div>
+        </section>
+
+        <!-- Screen 3: Message Loop -->
+        <section id="screen-loop" class="screen">
+            <div class="card glass message-card">
+                <div class="card-header">
+                    <span class="counter" id="message-counter">Secret 1/10</span>
+                    <span class="music-indicator">🎵 Blinding Lights</span>
+                </div>
+                <div class="message-content-wrapper">
+                    <p class="message-text" id="loop-message-text">Loading secret...</p>
+                </div>
+                <button class="btn primary-btn" id="loop-btn" onclick="nextMessage()">One more?</button>
+            </div>
+        </section>
+
+        <!-- Screen 4: Interactive Quiz -->
+        <section id="screen-quiz" class="screen">
+            <div class="card glass">
+                <div class="quiz-icon">🤔</div>
+                <h2 class="quiz-title">Quick Question...</h2>
+                <p class="subtitle-quiz">Who has Laban completely wrapped around their finger?</p>
+                <div class="quiz-options">
+                    <button class="btn option-btn" onclick="submitQuiz('A')">A) You 🫣</button>
+                    <button class="btn option-btn" onclick="submitQuiz('B')">B) Definitely You ❤️</button>
+                    <button class="btn option-btn" onclick="submitQuiz('C')">C) You (and Laban knows it) 😂</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Screen 5: Quiz Reaction -->
+        <section id="screen-quiz-reaction" class="screen">
+            <div class="card glass">
+                <div class="reaction-icon">🔥</div>
+                <p class="message-text" id="quiz-reaction-text">...</p>
+                <button class="btn primary-btn" onclick="resumeMessageLoop()">Continue 🤭</button>
+            </div>
+        </section>
+
+        <!-- Screen 6: Final Confession -->
+        <section id="screen-final" class="screen">
+            <div class="card glass final-card">
+                <div class="final-heart-glow">❤️</div>
+                <div class="final-text-container">
+                    <h2 class="final-title">From Laban, With Love ❤️</h2>
+                    <p class="message-text final-text show">
+                        I love you. Deeply, honestly, and unapologetically.
+                    </p>
+                    <p class="message-text final-text delay-1 show">
+                        I know I messed up a bit, but every mistake taught me how much I never want to lose you. You bring light into my world like nothing else can.
+                    </p>
+                    <p class="message-text final-text delay-2 text-soft show">
+                        Whenever you hear "Blinding Lights", just remember... that's me, head over heels for you. ✨
+                    </p>
+                </div>
+                <div class="final-actions">
+                    <button class="btn secondary-btn restart-btn show" onclick="restartApp()">Read Again 🔄</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
